@@ -1,34 +1,24 @@
+from bank_account import BankAccount
 class User:
-    def __init__(self, firstname):
-        self.firstName=firstname
-        self.account_balance=0
+    def __init__(self, name):
+        self.name=name
+        self.account = {
+            "checking": BankAccount (0.2,1200 ),
+            "savings": BankAccount (0.5 , 200 ),
+        }
 
-    def make_deposit(self,amount):
-        self.account_balance += amount
-        return self
+    def print_balance(self):
+        print(f"{self.name} Savings Balance is {self.account['savings'].balance} and Checking Balance is {self.account['checking'].balance}")
 
-    def make_withdrawal(self,amount):
-        self.account_balance -= amount
-        return self
-    
-    def display_balance(self):
-        print(f"User {self.firstName}",f"Balance {self.account_balance}" )
-    
-    def transfert(self,userOne,amount):
-        self.account_balance -=amount
-        userOne.account_balance += amount
-        self.display_balance()
-        userOne.display_balance()
+    def transfert(self , user2 , amount):
+        self.account['checking'].withdraw(amount)
+        user2.account['checking'].deposit(amount)
 
-        
-    
+sabrina = User('Sabrina')
+fatjon = User('Fatjon')
+sabrina.print_balance()
+sabrina.transfert(fatjon , 300)
+sabrina.print_balance()
+fatjon.print_balance()
 
-
-Vladimir = User('Vladimir')
-Isak = User('Isak')
-Flaka = User('Flaka')
-
-Vladimir.make_deposit(300).make_deposit(200).make_deposit(500).make_withdrawal(300).display_balance()
-Flaka.make_withdrawal(100).display_balance()
-Isak.transfert(Vladimir,300)
 
